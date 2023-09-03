@@ -10,8 +10,8 @@ using TrainingSystem.EF.Data;
 namespace TrainingSystem.EF.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230830154616_EditSessionTable")]
-    partial class EditSessionTable
+    [Migration("20230901124042_EditAllTables")]
+    partial class EditAllTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -223,11 +223,10 @@ namespace TrainingSystem.EF.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("TrainingSystem.Core.Models.LookUp", b =>
+            modelBuilder.Entity("TrainingSystem.Core.Models.LookupCategory", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -253,7 +252,58 @@ namespace TrainingSystem.EF.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LookUpCategoryId")
+                    b.Property<string>("ModifyBy")
+                        .HasColumnName("ModifyBy")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
+
+                    b.Property<DateTime>("ModifyOn")
+                        .HasColumnName("ModifyOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NameAr")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameEn")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("LookupCategories");
+                });
+
+            modelBuilder.Entity("TrainingSystem.Core.Models.Lookup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Code")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnName("CreatedBy")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnName("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("LookupCategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("ModifyBy")
@@ -275,60 +325,9 @@ namespace TrainingSystem.EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LookUpCategoryId");
+                    b.HasIndex("LookupCategoryId");
 
                     b.ToTable("Lookups");
-                });
-
-            modelBuilder.Entity("TrainingSystem.Core.Models.LookupCategory", b =>
-                {
-                    b.Property<int>("LookUpCategoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Code")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnName("CreatedBy")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnName("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ModifyBy")
-                        .HasColumnName("ModifyBy")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
-
-                    b.Property<DateTime>("ModifyOn")
-                        .HasColumnName("ModifyOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("NameAr")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NameEn")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("LookUpCategoryId");
-
-                    b.ToTable("LookupCategories");
                 });
 
             modelBuilder.Entity("TrainingSystem.Core.Models.Session", b =>
@@ -378,26 +377,35 @@ namespace TrainingSystem.EF.Migrations
                         .HasColumnName("ModifyOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ResultId")
+                    b.Property<int>("Result")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ResultLookupId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("StatusId")
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TopicId")
+                    b.Property<int?>("StatusLookupId")
                         .HasColumnType("int");
 
                     b.Property<string>("TraineeName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TrainerNameId")
+                    b.Property<int>("TrainingTopic")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TypeId")
+                    b.Property<int?>("TrainingTopicLookupId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TrainingType")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TrainingTypeLookupId")
                         .HasColumnType("int");
 
                     b.Property<string>("Year")
@@ -406,15 +414,13 @@ namespace TrainingSystem.EF.Migrations
 
                     b.HasKey("SessionId");
 
-                    b.HasIndex("ResultId");
+                    b.HasIndex("ResultLookupId");
 
-                    b.HasIndex("StatusId");
+                    b.HasIndex("StatusLookupId");
 
-                    b.HasIndex("TopicId");
+                    b.HasIndex("TrainingTopicLookupId");
 
-                    b.HasIndex("TrainerNameId");
-
-                    b.HasIndex("TypeId");
+                    b.HasIndex("TrainingTypeLookupId");
 
                     b.ToTable("Sessions");
                 });
@@ -480,34 +486,32 @@ namespace TrainingSystem.EF.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TrainingSystem.Core.Models.LookUp", b =>
+            modelBuilder.Entity("TrainingSystem.Core.Models.Lookup", b =>
                 {
                     b.HasOne("TrainingSystem.Core.Models.LookupCategory", "LookupCategory")
-                        .WithMany()
-                        .HasForeignKey("LookUpCategoryId");
+                        .WithMany("Lookups")
+                        .HasForeignKey("LookupCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TrainingSystem.Core.Models.Session", b =>
                 {
-                    b.HasOne("TrainingSystem.Core.Models.LookUp", "Result")
+                    b.HasOne("TrainingSystem.Core.Models.Lookup", "ResultLookup")
                         .WithMany()
-                        .HasForeignKey("ResultId");
+                        .HasForeignKey("ResultLookupId");
 
-                    b.HasOne("TrainingSystem.Core.Models.LookUp", "Status")
+                    b.HasOne("TrainingSystem.Core.Models.Lookup", "StatusLookup")
                         .WithMany()
-                        .HasForeignKey("StatusId");
+                        .HasForeignKey("StatusLookupId");
 
-                    b.HasOne("TrainingSystem.Core.Models.LookUp", "Topic")
+                    b.HasOne("TrainingSystem.Core.Models.Lookup", "TrainingTopicLookup")
                         .WithMany()
-                        .HasForeignKey("TopicId");
+                        .HasForeignKey("TrainingTopicLookupId");
 
-                    b.HasOne("TrainingSystem.Core.Models.LookUp", "TrainerName")
+                    b.HasOne("TrainingSystem.Core.Models.Lookup", "TrainingTypeLookup")
                         .WithMany()
-                        .HasForeignKey("TrainerNameId");
-
-                    b.HasOne("TrainingSystem.Core.Models.LookUp", "Type")
-                        .WithMany()
-                        .HasForeignKey("TypeId");
+                        .HasForeignKey("TrainingTypeLookupId");
                 });
 #pragma warning restore 612, 618
         }

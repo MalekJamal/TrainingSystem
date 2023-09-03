@@ -1,41 +1,8 @@
-﻿@model List<TrainingSystem.Core.Models.Session>
+﻿<h1>Training System</h1>
 
-<h1>Sessions</h1>
-
-@if (Model != null && Model.Count > 0)
-{
-    <table class="table table-striped mt-4">
-        <thead>
-            <tr>
-                <th>Session ID</th>
-                <th>Start Date</th>
-                <th>Year</th>
-                <th>Trainee Name</th>
-                <th>Topic</th>
-                <th>Type</th>
-                <th>Final Presentation Date</th>
-                
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var session in Model)
-            {
-                <tr>
-                    <td>@session.SessionId</td>
-                    <td>@session.StartDate</td>
-                    <td>@session.Year</td>
-                    <td>@session.TraineeName</td>
-                    <td>@session.Topic</td>
-                    <td>@session.Type</td>
-                    <td>@session.FinalPresentationDate</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<a asp-action="Index" asp-controller="Session" class="btn btn-outline-secondary">Go To Sessions</a>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
 }
-else
-{
-    <p>No sessions found.</p>
-}
-
-<a asp-action="Create">Create New Session</a>

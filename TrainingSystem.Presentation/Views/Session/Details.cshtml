@@ -1,0 +1,28 @@
+﻿@model Session
+
+<h2 class="mb-4">Session Details</h2>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Year</h5>
+        <p class="card-text">@Model.Year</p>
+    </div>
+</div>
+
+<div class="card mt-3">
+    <div class="card-body">
+        <h5 class="card-title">Trainee Name</h5>
+        <p class="card-text">@Model.TraineeName</p>
+    </div>
+</div>
+
+<div class="card mt-3">
+    <div class="card-body">
+        <h5 class="card-title">Trainer Name</h5>
+        <p class="card-text">@Model.TrainerName</p>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-controller="Session" asp-action="Index" class="btn btn-dark">Back to List</a>
+</div>

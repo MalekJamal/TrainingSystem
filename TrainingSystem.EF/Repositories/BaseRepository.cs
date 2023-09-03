@@ -10,9 +10,15 @@ using TrainingSystem.EF.Data;
 
 namespace TrainingSystem.EF.Repositories
 {
+    public class DataAccessException : Exception
+    {
+        public DataAccessException(string message, Exception innerException): base(message, innerException)
+        {
+        }
+    }
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
-        // just here the place where i need to use th ApplicationDbContext
+        // just here the place where I need to use the ApplicationDbContext
         protected ApplicationDbContext _context;
 
         public BaseRepository(ApplicationDbContext context)
@@ -20,25 +26,86 @@ namespace TrainingSystem.EF.Repositories
             _context = context;
         }
 
+
         public async Task<T> GetByIdAsync(int id)
         {
-            return await _context.Set<T>().FindAsync(id);
+            try
+            {
+                return await _context.Set<T>().FindAsync(id);
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new DataAccessException("An error occurred while fetching an entity by ID.", ex);
+            }
         }
+
+
         public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return await _context.Set<T>().ToListAsync();
+            try
+            {
+                return await _context.Set<T>().ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessException("An error occurred while fetching all entities.", ex);
+            }
         }
 
-        public T Find(Expression<Func<T, bool>> criteria, string[] includes = null)
+        public async Task<T> AddAsync(T entity)
         {
-            IQueryable<T> query = _context.Set<T>();
-
-            if (includes != null)
-                foreach (var include in includes)
-                    query = query.Include(include);
-
-            return query.SingleOrDefault(criteria);
+            try
+            {
+                await _context.Set<T>().AddAsync(entity);
+                await _context.SaveChangesAsync();
+                return entity;
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new DataAccessException("An error occurred while saving data.", ex);
+            }
         }
+
+       public async Task<T> FindAsync(Expression<Func<T, bool>> criteria)
+        {
+            try
+            {
+                return await _context.Set<T>().SingleOrDefaultAsync(criteria);
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception here, you can log it or re-throw a custom exception if needed.
+                throw new DataAccessException("An error occurred while finding the entity.", ex);
+            }
+
+        }
+        public async Task<T> FindAsync(Expression<Func<T, bool>> criteria, string[] includes = null)
+        {
+            try
+            {
+                // Start with a query that targets the main entity type.
+                IQueryable<T> query = _context.Set<T>();
+
+                // If includes are specified, loop through them and include related entities.
+                if (includes != null)
+                {
+                    foreach (var include in includes)
+                    {
+                        query = query.Include(include);
+                    }
+                }
+
+                // Use the criteria lambda expression to filter the results and return a single entity.
+                return await query.SingleOrDefaultAsync(criteria);
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception here, you can log it or re-throw a custom exception if needed.
+                throw new DataAccessException("An error occurred while finding the entity.", ex);
+            }
+        }
+
 
     }
+
 }

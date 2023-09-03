@@ -221,11 +221,10 @@ namespace TrainingSystem.EF.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("TrainingSystem.Core.Models.LookUp", b =>
+            modelBuilder.Entity("TrainingSystem.Core.Models.Lookup", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -233,10 +232,7 @@ namespace TrainingSystem.EF.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnName("CreatedBy")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("CreatedOn")
@@ -251,13 +247,11 @@ namespace TrainingSystem.EF.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LookUpCategoryId")
+                    b.Property<int>("LookupCategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("ModifyBy")
-                        .HasColumnName("ModifyBy")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ModifyOn")
                         .HasColumnName("ModifyOn")
@@ -273,14 +267,220 @@ namespace TrainingSystem.EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LookUpCategoryId");
+                    b.HasIndex("LookupCategoryId");
 
-                    b.ToTable("Lookups");
+                    b.ToTable("Lookup");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Code = 1,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            IsDeleted = false,
+                            LookupCategoryId = 100,
+                            ModifyOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NameAr = "عمل",
+                            NameEn = "Work"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Code = 2,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            IsDeleted = false,
+                            LookupCategoryId = 100,
+                            ModifyOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NameAr = "جامعة",
+                            NameEn = "University"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Code = 1,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            IsDeleted = false,
+                            LookupCategoryId = 200,
+                            ModifyOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NameAr = ".Net",
+                            NameEn = "DotNet"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Code = 2,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            IsDeleted = false,
+                            LookupCategoryId = 200,
+                            ModifyOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NameAr = "محلل أعمال",
+                            NameEn = "BusinessAnalyst"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Code = 3,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            IsDeleted = false,
+                            LookupCategoryId = 200,
+                            ModifyOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NameAr = "مراقبة الجودة",
+                            NameEn = "QualityControl"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Code = 4,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            IsDeleted = false,
+                            LookupCategoryId = 200,
+                            ModifyOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NameAr = "بنية الأنظمة",
+                            NameEn = "Infrastructure"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Code = 5,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            IsDeleted = false,
+                            LookupCategoryId = 200,
+                            ModifyOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NameAr = "واجهة المستخدم وتجربة المستخدم",
+                            NameEn = "UI_UX"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Code = 6,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            IsDeleted = false,
+                            LookupCategoryId = 200,
+                            ModifyOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NameAr = "الموارد البشرية",
+                            NameEn = "HumanResources"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Code = 7,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            IsDeleted = false,
+                            LookupCategoryId = 200,
+                            ModifyOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NameAr = "المالية",
+                            NameEn = "Finance"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Code = 8,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            IsDeleted = false,
+                            LookupCategoryId = 200,
+                            ModifyOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NameAr = "الذكاء الاصطناعي",
+                            NameEn = "AI"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Code = 1,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            IsDeleted = false,
+                            LookupCategoryId = 300,
+                            ModifyOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NameAr = "نشط",
+                            NameEn = "Active"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Code = 2,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            IsDeleted = false,
+                            LookupCategoryId = 300,
+                            ModifyOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NameAr = "قيد الانتظار",
+                            NameEn = "Pending"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Code = 3,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            IsDeleted = false,
+                            LookupCategoryId = 300,
+                            ModifyOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NameAr = "مكتمل",
+                            NameEn = "Finished"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Code = 1,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            IsDeleted = false,
+                            LookupCategoryId = 400,
+                            ModifyOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NameAr = "الانضمام إلى فريق TPS",
+                            NameEn = "Joining_TPS_Team"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Code = 2,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            IsDeleted = false,
+                            LookupCategoryId = 400,
+                            ModifyOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NameAr = "معلق",
+                            NameEn = "On_Hold"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Code = 3,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            IsDeleted = false,
+                            LookupCategoryId = 400,
+                            ModifyOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NameAr = "مرفوض",
+                            NameEn = "Rejected"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Code = 4,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            IsDeleted = false,
+                            LookupCategoryId = 400,
+                            ModifyOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NameAr = "استقال",
+                            NameEn = "Quit"
+                        });
                 });
 
-            modelBuilder.Entity("TrainingSystem.Core.Models.LookUpCategory", b =>
+            modelBuilder.Entity("TrainingSystem.Core.Models.LookupCategory", b =>
                 {
-                    b.Property<int>("LookUpCategoryId")
+                    b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -289,10 +489,7 @@ namespace TrainingSystem.EF.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnName("CreatedBy")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("CreatedOn")
@@ -308,9 +505,7 @@ namespace TrainingSystem.EF.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ModifyBy")
-                        .HasColumnName("ModifyBy")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ModifyOn")
                         .HasColumnName("ModifyOn")
@@ -324,9 +519,55 @@ namespace TrainingSystem.EF.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("LookUpCategoryId");
+                    b.HasKey("CategoryId");
 
-                    b.ToTable("LookupCategories");
+                    b.ToTable("LookupCategory");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 100,
+                            Code = 1,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            IsDeleted = false,
+                            ModifyOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NameAr = "نوع التدريب",
+                            NameEn = "Training Type"
+                        },
+                        new
+                        {
+                            CategoryId = 200,
+                            Code = 2,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            IsDeleted = false,
+                            ModifyOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NameAr = "موضوعات التدريب",
+                            NameEn = "Training Topics"
+                        },
+                        new
+                        {
+                            CategoryId = 300,
+                            Code = 3,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            IsDeleted = false,
+                            ModifyOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NameAr = "حالة التدريب",
+                            NameEn = "Training Status"
+                        },
+                        new
+                        {
+                            CategoryId = 400,
+                            Code = 4,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = false,
+                            IsDeleted = false,
+                            ModifyOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NameAr = "نتيجة التدريب",
+                            NameEn = "Training Result"
+                        });
                 });
 
             modelBuilder.Entity("TrainingSystem.Core.Models.Session", b =>
@@ -343,10 +584,7 @@ namespace TrainingSystem.EF.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnName("CreatedBy")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnName("CreatedOn")
@@ -368,53 +606,65 @@ namespace TrainingSystem.EF.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ModifyBy")
-                        .HasColumnName("ModifyBy")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ModifyOn")
                         .HasColumnName("ModifyOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ResultId")
+                    b.Property<int>("Result")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ResultLookupId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("StatusId")
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TopicId")
+                    b.Property<int?>("StatusLookupId")
                         .HasColumnType("int");
 
                     b.Property<string>("TraineeName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TrainerNameId")
+                    b.Property<int?>("TrainerLookupId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TypeId")
+                    b.Property<int>("TrainerName")
                         .HasColumnType("int");
 
-                    b.Property<string>("Year")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("TrainingTopic")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TrainingTopicLookupId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TrainingType")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TrainingTypeLookupId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
 
                     b.HasKey("SessionId");
 
-                    b.HasIndex("ResultId");
+                    b.HasIndex("ResultLookupId");
 
-                    b.HasIndex("StatusId");
+                    b.HasIndex("StatusLookupId");
 
-                    b.HasIndex("TopicId");
+                    b.HasIndex("TrainerLookupId");
 
-                    b.HasIndex("TrainerNameId");
+                    b.HasIndex("TrainingTopicLookupId");
 
-                    b.HasIndex("TypeId");
+                    b.HasIndex("TrainingTypeLookupId");
 
-                    b.ToTable("Sessions");
+                    b.ToTable("Session");
                 });
 
             modelBuilder.Entity("TrainingSystem.Core.Models.User", b =>
@@ -478,34 +728,36 @@ namespace TrainingSystem.EF.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TrainingSystem.Core.Models.LookUp", b =>
+            modelBuilder.Entity("TrainingSystem.Core.Models.Lookup", b =>
                 {
-                    b.HasOne("TrainingSystem.Core.Models.LookUpCategory", "LookUpCategory")
-                        .WithMany()
-                        .HasForeignKey("LookUpCategoryId");
+                    b.HasOne("TrainingSystem.Core.Models.LookupCategory", "LookupCategory")
+                        .WithMany("Lookups")
+                        .HasForeignKey("LookupCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TrainingSystem.Core.Models.Session", b =>
                 {
-                    b.HasOne("TrainingSystem.Core.Models.LookUp", "Result")
+                    b.HasOne("TrainingSystem.Core.Models.Lookup", "ResultLookup")
                         .WithMany()
-                        .HasForeignKey("ResultId");
+                        .HasForeignKey("ResultLookupId");
 
-                    b.HasOne("TrainingSystem.Core.Models.LookUp", "Status")
+                    b.HasOne("TrainingSystem.Core.Models.Lookup", "StatusLookup")
                         .WithMany()
-                        .HasForeignKey("StatusId");
+                        .HasForeignKey("StatusLookupId");
 
-                    b.HasOne("TrainingSystem.Core.Models.LookUp", "Topic")
+                    b.HasOne("TrainingSystem.Core.Models.Lookup", "TrainerLookup")
                         .WithMany()
-                        .HasForeignKey("TopicId");
+                        .HasForeignKey("TrainerLookupId");
 
-                    b.HasOne("TrainingSystem.Core.Models.LookUp", "TrainerName")
+                    b.HasOne("TrainingSystem.Core.Models.Lookup", "TrainingTopicLookup")
                         .WithMany()
-                        .HasForeignKey("TrainerNameId");
+                        .HasForeignKey("TrainingTopicLookupId");
 
-                    b.HasOne("TrainingSystem.Core.Models.LookUp", "Type")
+                    b.HasOne("TrainingSystem.Core.Models.Lookup", "TrainingTypeLookup")
                         .WithMany()
-                        .HasForeignKey("TypeId");
+                        .HasForeignKey("TrainingTypeLookupId");
                 });
 #pragma warning restore 612, 618
         }

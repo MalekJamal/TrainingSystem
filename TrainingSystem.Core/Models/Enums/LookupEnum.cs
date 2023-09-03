@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
-namespace DataAccess.Models.Enums
+namespace TrainingSystem.Core.Models.Enums
 {
     public static class LookupEnum
     {
@@ -15,11 +16,11 @@ namespace DataAccess.Models.Enums
         public enum TrainingTopics
         {
             DotNet = 1,
-            BusinessAnalyst = 2,
-            QualityControl = 3,
+            Business_Analyst = 2,
+            Quality_Control = 3,
             Infrastructure = 4,
             UI_UX = 5,
-            HumanResources=6,
+            Human_Resources=6,
             Finance=7,
             AI=8
         }
@@ -41,14 +42,28 @@ namespace DataAccess.Models.Enums
 
         public enum Trainer
         {
-            KhalidSalameh=1,
-            LameesHourani=2,
+            Khalid_Salameh=1,
+            Lamees_Hourani=2,
             MariamAl_Sadawi=3,
-            MohammadHamad=4,
-            MohammadIbdah=5,
+            Mohammad_Hamad=4,
+            Mohammad_Ibdah=5,
             Safaa=6,
-            ZakariaLafi=7,
-            AhmedSweilem = 8
+            Zakaria_Lafi=7,
+            Ahmed_Sweilem = 8
+        }
+
+        public enum Year
+        {
+            
+            Year2023,
+            Year2024,
+            Year2025,
+            Year2026,
+            Year2027,
+            Year2028,
+            Year2029,
+            Year2030,
+            Year2031,
         }
     }
 }

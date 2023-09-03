@@ -1,26 +1,29 @@
-﻿using TrainingSystem.Core.Models.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using TrainingSystem.Core.Models;
+using TrainingSystem.Core.Models.Enums;
 
-namespace TrainingSystem.Core.Models
+namespace TrainingSystem.Core.ViewModels
 {
-    public class Session : BaseEntity
+    public class SessionViewModel
     {
+
         [Key]
         public int SessionId { get; set; }
 
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "Start Date is required.")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime StartDate { get; set; }
-
         [DataType(DataType.Date), Required]
+        [DisplayFormat(DataFormatString = "{yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ExpectedEndDate { get; set; }
 
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ActualEndDate { get; set; }
 
         [Required]
@@ -56,6 +59,6 @@ namespace TrainingSystem.Core.Models
         public Lookup ResultLookup { get; set; }
 
         public Lookup TrainerLookup { get; set; }
+        public IEnumerable<Session> Sessions { get; set; }
     }
-
 }

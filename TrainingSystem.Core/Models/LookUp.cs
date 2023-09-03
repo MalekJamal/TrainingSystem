@@ -6,21 +6,26 @@ using System.Text;
 
 namespace TrainingSystem.Core.Models
 {
-    public class LookUp : BaseEntity
+    public class Lookup : BaseEntity
     {
-        [Column(name: "Id")]
-        [Key] public int Id { get; set; }  //1  /2/  3/ 4
+        [Key]
+        public int Id { get; set; }
 
-        [Required] public int Code { get; set; }//1
+        [Required] 
+        public int Code { get; set; }
 
-        [Required] public string NameEn { get; set; }//.net  /BA   /BI  /AI
+        [Required] 
+        public string NameEn { get; set; }
 
-        [Required] public string NameAr { get; set; }
+        [Required] 
+        public string NameAr { get; set; }
 
         public string Description { get; set; }
+        [Required] 
+        public int LookupCategoryId { get; set; }
 
-        public LookUpCategory LookUpCategory { get; set; }  //100 : type  /200 topic
-
+        [ForeignKey("LookupCategoryId")]  // Specify the foreign key relationship
+        public LookupCategory LookupCategory { get; set; }
 
 
     }

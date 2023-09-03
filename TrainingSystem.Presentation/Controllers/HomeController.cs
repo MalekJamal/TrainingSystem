@@ -21,16 +21,10 @@ namespace TrainingSystem.Presentation.Controllers
             _logger = logger;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var session = await _sessionRepository.GetAllAsync();
 
-            if(session == null)
-            {
-            return NotFound();
-
-            }
-            return View(session);
+            return View();
         }
 
         public IActionResult Privacy()

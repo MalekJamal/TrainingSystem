@@ -280,7 +280,7 @@ namespace TrainingSystem.EF.Migrations
                     b.ToTable("Lookups");
                 });
 
-            modelBuilder.Entity("TrainingSystem.Core.Models.LookUpCategory", b =>
+            modelBuilder.Entity("TrainingSystem.Core.Models.LookupCategory", b =>
                 {
                     b.Property<int>("LookUpCategoryId")
                         .ValueGeneratedOnAdd()
@@ -482,7 +482,7 @@ namespace TrainingSystem.EF.Migrations
 
             modelBuilder.Entity("TrainingSystem.Core.Models.LookUp", b =>
                 {
-                    b.HasOne("TrainingSystem.Core.Models.LookUpCategory", "LookUpCategory")
+                    b.HasOne("TrainingSystem.Core.Models.LookupCategory", "LookupCategory")
                         .WithMany()
                         .HasForeignKey("LookUpCategoryId");
                 });

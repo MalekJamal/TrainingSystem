@@ -5,16 +5,21 @@ using System.Text;
 
 namespace TrainingSystem.Core.Models
 {
-    public class LookUpCategory : BaseEntity
+    public class LookupCategory : BaseEntity
     {
         [Key]
-        public int LookUpCategoryId { get; set; }  //100  ,200   ,300  ,400
+        public int CategoryId { get; set; }
 
-        [Required] public int Code { get; set; }    //1        ,2        ,3        ,4
+        [Required]
+        public int Code { get; set; }
 
-        [Required] public string NameEn { get; set; }  //type   ,topic  ,result   , Status
+        [Required] 
+        public string NameEn { get; set; }
 
-        [Required] public string NameAr { get; set; }
+        [Required] 
+        public string NameAr { get; set; }
         public string Description { get; set; }
+        // Navigation property to refer to the collection of LookUps in this category
+        public ICollection<Lookup> Lookups { get; set; }
     }
 }
