@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20230830093832_AddNewTables.cs" />
     <Compile Remove="Migrations\20230830093832_AddNewTables.Designer.cs" />
+    <Compile Remove="Migrations\20230903124535_EditTableFields.cs" />
+    <Compile Remove="Migrations\20230903124535_EditTableFields.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

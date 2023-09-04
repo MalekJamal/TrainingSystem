@@ -3,7 +3,7 @@
 <h1>Training Sessions</h1>
 
 <div class="container align-items-center border border-dark border-2">
-    <form method="get" asp-action="Search" class="m-2">
+    <form id="searchForm" method="get" asp-action="Search" class="m-2">
         <div class="row ">
             <div class="col">
                 <div class="mb-3 w-50">
@@ -11,9 +11,10 @@
                     @{
                         var yearValues = Enum.GetValues(typeof(LookupEnum.Year))
                         .Cast<LookupEnum.Year>()
-                        .Select(y => y.ToString().Substring(4)); // Remove "Year" from each enum value
+                        .Select(y => y.ToString());
                     }
                     <select name="Year" class="form-control">
+                        <option>choose a year</option>
                         @foreach (var year in yearValues)
                         {
                             <option value="@year">@year</option>
@@ -28,9 +29,11 @@
                     @{
                         var trainingTypeValues = Enum.GetValues(typeof(LookupEnum.enTrainingType))
                         .Cast<LookupEnum.enTrainingType>()
-                        .Select(tt => tt.ToString().Replace("_", " ")); // Replace underscore with space
+                        .Select(tt => tt.ToString()); // Replace underscore with space .Replace("_", " ")
                     }
                     <select name="TrainingType" class="form-control">
+                        <option>choose training type</option>
+
                         @foreach (var trainingType in trainingTypeValues)
                         {
                             <option value="@trainingType">@trainingType</option>
@@ -47,9 +50,11 @@
                     @{
                         var trainerValues = Enum.GetValues(typeof(LookupEnum.Trainer))
                         .Cast<LookupEnum.Trainer>()
-                        .Select(t => t.ToString().Replace("_", " ")); // Replace underscore with space
+                        .Select(t => t.ToString()); // Replace underscore with space .Replace("_", " ")
                     }
                     <select name="TrainerName" class="form-control">
+                        <option>choose trainer name</option>
+
                         @foreach (var trainer in trainerValues)
                         {
                             <option value="@trainer">@trainer</option>
@@ -73,9 +78,11 @@
                     @{
                         var status = Enum.GetValues(typeof(LookupEnum.Status))
                         .Cast<LookupEnum.Status>()
-                        .Select(t => t.ToString().Replace("_", " ")); // Replace underscore with space
+                        .Select(t => t.ToString()); // Replace underscore with space .Replace("_", " ")
                     }
                     <select name="Status" class="form-control">
+                        <option>choose status</option>
+
                         @foreach (var st in status)
                         {
                             <option value="@st">@st</option>
@@ -90,9 +97,11 @@
                     @{
                         var result = Enum.GetValues(typeof(LookupEnum.Result))
                         .Cast<LookupEnum.Result>()
-                        .Select(t => t.ToString().Replace("_", " ")); // Replace underscore with space
+                        .Select(t => t.ToString()); // Replace underscore with space .Replace("_", " ")
                     }
                     <select name="Result" class="form-control">
+                        <option>choose result</option>
+
                         @foreach (var res in result)
                         {
                             <option value="@res">@res</option>
@@ -200,6 +209,30 @@
         }
     </tbody>
 </table>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get the form element by its ID
+        var form = document.getElementById('searchForm');
+
+        // Add a submit event listener to the form
+        form.addEventListener('submit', function (event) {
+            // Check if at least one input is filled
+            var inputs = form.querySelectorAll('input[type=text], input[type=date], select');
+            var atLeastOneFilled = Array.from(inputs).some(function (input) {
+                return input.value.trim() !== '';
+            });
+
+            // If no input is filled, prevent form submission
+            if (!atLeastOneFilled) {
+                alert('Please fill at least one input.');
+                event.preventDefault(); // Prevent form submission
+            }
+        });
+    });
+</script>
+
+
 @section Scripts{
     @{
         <partial name="_ValidationScriptsPartial" />

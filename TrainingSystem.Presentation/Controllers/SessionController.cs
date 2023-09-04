@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TrainingSystem.Core.Interfaces;
 using TrainingSystem.Core.Models;
 using TrainingSystem.Core.ViewModels;
+using Microsoft.AspNetCore.Http;
 
 namespace TrainingSystem.Presentation.Controllers
 {
@@ -35,7 +36,7 @@ namespace TrainingSystem.Presentation.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while retrieving sessions.");              
+                _logger.LogError(ex, "An error occurred while retrieving sessions.");
                 return View(nameof(ErrorViewModel));
             }
 
@@ -72,7 +73,7 @@ namespace TrainingSystem.Presentation.Controllers
             {
                 // Call the repository layer to add the entity.
                 var result = await _sessionRepository.AddAsync(session);
-                
+
                 // Handle success and redirection.
                 return RedirectToAction(nameof(Index));
             }
@@ -88,10 +89,79 @@ namespace TrainingSystem.Presentation.Controllers
 
         }
 
-        public async Task<IActionResult> Search(SessionViewModel ob)
+        public async Task<IActionResult> Search(SessionViewModel session)
         {
+            if (session.Year != 0 || session.TrainingType == 0 &&
+                session.TrainerName == 0 && session.TraineeName == null &&
+                session.Status == 0 && session.Result == 0 &&
+                session.StartDate == null && session.ExpectedEndDate == null)
+            {
+                var sessions = await _sessionRepository.FindAllAsync(b => (int)b.Year == (int)session.Year);
+                return View(sessions);
+            }
 
-          var b = await _sessionRepository.FindAsync(b => b.Year == LookupEnum.Year.Year2023);
+            if (session.Year == 0 && session.TrainingType != 0 ||
+               session.TrainerName == 0 && session.TraineeName == null &&
+               session.Status == 0 && session.Result == 0 &&
+               session.StartDate == null && session.ExpectedEndDate == null)
+            {
+                var sessions = await _sessionRepository.FindAllAsync(b => (int)b.TrainingType == (int)session.TrainingType);
+                return View(sessions);
+            }
+
+            if (session.Year == 0 && session.TrainingType == 0 &&
+              session.TrainerName != 0 || session.TraineeName == null &&
+              session.Status == 0 && session.Result == 0 &&
+              session.StartDate == null && session.ExpectedEndDate == null)
+            {
+                var sessions = await _sessionRepository.FindAllAsync(b => (int)b.TrainerName == (int)session.TrainerName);
+                return View(sessions);
+            }
+
+            if (session.Year == 0 && session.TrainingType == 0 &&
+              session.TrainerName == 0 && session.TraineeName != null ||
+              session.Status == 0 && session.Result == 0 &&
+              session.StartDate == null && session.ExpectedEndDate == null)
+            {
+                var sessions = await _sessionRepository.FindAllAsync(b => b.TraineeName.Contains(session.TraineeName));
+                return View(sessions);
+            }
+
+            if (session.Year == 0 && session.TrainingType == 0 &&
+              session.TrainerName == 0 && session.TraineeName == null &&
+              session.Status != 0 || session.Result == 0 &&
+              session.StartDate == null && session.ExpectedEndDate == null)
+            {
+                var sessions = await _sessionRepository.FindAllAsync(b => (int)b.Status == (int)session.Status);
+                return View(sessions);
+            }
+
+            if (session.Year == 0 && session.TrainingType == 0 &&
+              session.TrainerName == 0 && session.TraineeName == null &&
+              session.Status == 0 && session.Result != 0 ||
+              session.StartDate == null && session.ExpectedEndDate == null)
+            {
+                var sessions = await _sessionRepository.FindAllAsync(b => (int)b.Result == (int)session.Result);
+                return View(sessions);
+            }
+
+            if (session.Year == 0 && session.TrainingType == 0 &&
+              session.TrainerName == 0 && session.TraineeName == null &&
+              session.Status == 0 && session.Result == 0 &&
+              session.StartDate != null || session.ExpectedEndDate == null)
+            {
+                var sessions = await _sessionRepository.FindAllAsync(b => b.StartDate.Date == session.StartDate);
+                return View(sessions);
+            }
+
+            if (session.Year == 0 && session.TrainingType == 0 &&
+              session.TrainerName == 0 && session.TraineeName == null &&
+              session.Status == 0 && session.Result == 0 &&
+              session.StartDate == null || session.ExpectedEndDate != null)
+            {
+                var sessions = await _sessionRepository.FindAllAsync(b => b.ExpectedEndDate.Date == session.ExpectedEndDate);
+                return View(sessions);
+            }
 
             return View();
         }

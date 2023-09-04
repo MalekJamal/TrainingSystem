@@ -106,6 +106,35 @@ namespace TrainingSystem.EF.Repositories
         }
 
 
+
+        public async Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> criteria, string[] includes = null)
+        {
+            try
+            {
+                IQueryable<T> query = _context.Set<T>();
+
+                // If includes are specified, loop through them and include related entities.
+                if (includes != null)
+                {
+                    foreach (var include in includes)
+                    {
+                        query = query.Include(include);
+                    }
+                }
+
+                // Use the criteria lambda expression to filter the results and return a List of entities.
+                return await query.Where(criteria).ToListAsync();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new DataAccessException("An error occurred while finding the entity.", ex);
+
+            }
+        }
+
+       
     }
 
 }

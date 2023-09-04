@@ -57,7 +57,7 @@
                     <span asp-validation-for="ExpectedEndDate" class="text-danger"></span>
                 </div>
             </div>
-                            @*Should be changed*@
+                            @*Should be Moved*@
             <input asp-for="CreatedBy" type="hidden" class="form-control" value="Malek" />
             <input asp-for="ModifyBy" type="hidden" class="form-control" value="Malek" />
             <input asp-for="CreatedOn" type="hidden" class="form-control" value="@DateTime.Now" />
@@ -79,6 +79,11 @@
 </form>
 
 
+<table class="table table-striped">
+    <tr>
+
+    </tr>
+</table>
 @section Scripts{
     @{
         <partial name="_ValidationScriptsPartial" />

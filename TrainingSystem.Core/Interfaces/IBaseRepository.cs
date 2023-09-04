@@ -14,6 +14,7 @@ namespace TrainingSystem.Core.Interfaces
        Task<T> AddAsync(T entity);
        Task<T> FindAsync(Expression<Func<T, bool>> criteria);
        Task<T> FindAsync(Expression<Func<T, bool>> criteria, string[] includes = null);
+       Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> criteria, string[] includes = null);
 
 
     }
